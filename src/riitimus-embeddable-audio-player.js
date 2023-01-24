@@ -4,14 +4,20 @@
  */
 
 /**
+ * @typedef RiitimusEmbeddableAudioPlayerSrcStructure
+ * @property { string } audio - The source to the audio.
+ * @property { string } coverImage - The source to the audio's cover image.
+ */
+
+/**
  * RiitimusEmbeddableAudioPlayer class.
  */
 class RiitimusEmbeddableAudioPlayer {
     /**
      * Creates a new RiitimusEmbeddableAudioPlayer instance.
      * 
-     * @param { { audio: string, coverImage: string }[] | string } srcs
-     * A list containing all sources to audios and cover images.
+     * @param { RiitimusEmbeddableAudioPlayerSrcStructure[] | string } srcs
+     * A list containing all the sources to audios and cover images.
      * Optionally you can provide a string with the source to
      * the audio only, as its the cover image source is not mandatory.
      */
@@ -37,6 +43,10 @@ class RiitimusEmbeddableAudioPlayer {
          */
         this._currentAudioTitle = null;
 
+        /**
+         * A list containg all the sources to audios and cover images.
+         * @type { RiitimusEmbeddableAudioPlayerSrcStructure[] }
+         */
         this._srcs = srcs;
     }
 
