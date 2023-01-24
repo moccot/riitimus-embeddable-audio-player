@@ -1,4 +1,4 @@
-# RiitimusEmbedAudioPlayer
+# RiitimusEmbeddableAudioPlayer
 An embeddable audio player for html pages, built with javascript and node-blade.
 
 ## to-do
