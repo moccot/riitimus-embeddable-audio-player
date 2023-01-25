@@ -106,21 +106,18 @@ class RiitimusEmbeddableAudioPlayer {
         /**
          * The current audio that is being played.
          * @type { HTMLAudioElement }
-         * @default
          */
         this._currentAudio = this._createElement({ tag: 'audio' });
 
         /**
          * The current audio's cover image.
          * @type { HTMLImageElement | null }
-         * @default
          */
         this._currentAudioCoverImage = null;
 
         /**
          * The current audio's title
          * @type { string | null }
-         * @default
          */
         this._currentAudioTitle = null;
 
@@ -130,6 +127,10 @@ class RiitimusEmbeddableAudioPlayer {
          */
         this._srcs = srcs;
 
+        /**
+         * Holds all the elements that compose the player.
+         * @type { Object }
+         */
         this._elements = {};
 
         this._mount();
