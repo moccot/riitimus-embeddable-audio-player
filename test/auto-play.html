@@ -13,10 +13,13 @@
 
     <script src="../src/riitimus-embeddable-audio-player.js"></script>
     <script>
-        const riitimus = new RiitimusEmbeddableAudioPlayer([
-            // Music by Ashot Danielyan from Pixabay
-            './relaxed-vlog.mp3'
-        ]);
+        const riitimus = new RiitimusEmbeddableAudioPlayer({
+            autoplay: true,
+            srcs: [
+                // Music by Ashot Danielyan from Pixabay
+                './relaxed-vlog.mp3'
+            ]
+        });
 
         riitimus.setCurrentAudio(0);
     </script>
