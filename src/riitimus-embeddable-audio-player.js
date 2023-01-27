@@ -16,7 +16,6 @@
  * A list containing all the sources to audios and cover images.
  * Optionally you can provide a string with the source to
  * the audio only, as its the cover image source is not mandatory.
- * 
  */
 
 /**
@@ -82,6 +81,14 @@ class RiitimusEmbeddableAudioPlayerElement {
         this.htmlElement.setAttribute(attributeName, attributeValue);
 
         return this;
+    }
+
+    /**
+     * Sets a value to the created element's value property.
+     * @param { string } value - The value to be set.
+     */
+    setValue(value) {
+        this.htmlElement.value = value;
     }
 
     /**
@@ -202,7 +209,7 @@ class RiitimusEmbeddableAudioPlayer {
 
         this._currentAudio.addEventListener('timeupdate', event => {
             this._elements.audioControls.children.audioPlaybackProgressControl
-                .setAttribute('value', event.target.currentTime.toString());
+                .setValue(event.target.currentTime.toString());
         });
 
         this._currentAudio.addEventListener('loadeddata', () => {
@@ -211,13 +218,13 @@ class RiitimusEmbeddableAudioPlayer {
 
         this._currentAudio.addEventListener('loadedmetadata', () => {
             this._elements.audioControls.children.audioPlaybackProgressControl
-                .setAttribute('value', '0')
-                .setAttribute('max', this._currentAudio.duration.toString());
+                .setAttribute('max', this._currentAudio.duration.toString())
+                .setValue('0');
         });
 
         this._setAudioVolume(75);
 
-        console.log('Current playing audio of index:', this._currentAudioIndex);
+        console.log('Current audio index is now:', this._currentAudioIndex);
     }
 
     /**
@@ -227,7 +234,7 @@ class RiitimusEmbeddableAudioPlayer {
     _setAudioVolume(volume) {
         this._currentAudio.volume = volume / 100;
 
-        console.log('Audio volume changed to:', volume.toString() + '%')
+        console.log('Current audio volume changed to:', volume.toString() + '%');
     }
 
     /**
@@ -237,7 +244,7 @@ class RiitimusEmbeddableAudioPlayer {
     _setAudioCurrentTime(second) {
         this._currentAudio.currentTime = second;
 
-        console.log('Audio playback progress changed to second:', second);
+        console.log('Current audio playback progress changed to second:', second);
     }
 
     _mute() {
@@ -260,7 +267,7 @@ class RiitimusEmbeddableAudioPlayer {
     _playAudio() {
         this._currentAudio.play();
 
-        console.log('Audio is now playing.')
+        console.log('Current audio is now playing.');
     }
 
     /**
@@ -269,7 +276,7 @@ class RiitimusEmbeddableAudioPlayer {
     _pauseAudio() {
         this._currentAudio.pause();
 
-        console.log('Audio is now paused.');
+        console.log('Current audio is now paused.');
     }
 
     /**
@@ -278,7 +285,10 @@ class RiitimusEmbeddableAudioPlayer {
     _skipPrevious() {
         let previousAudioIndex = this._currentAudioIndex - 1;
 
-        if (this._options.srcs[previousAudioIndex]) this.setCurrentAudio(previousAudioIndex);
+        if (this._options.srcs[previousAudioIndex]) {
+            console.log('Skiping back to the previous audio.');
+            this.setCurrentAudio(previousAudioIndex);
+        }
     }
 
     /**
@@ -287,8 +297,10 @@ class RiitimusEmbeddableAudioPlayer {
     _skipNext() {
         let nextAudioIndex = this._currentAudioIndex + 1;
 
-        if (this._options.srcs[nextAudioIndex]) this.setCurrentAudio(nextAudioIndex);
-        console.log('skip next')
+        if (this._options.srcs[nextAudioIndex]) {
+            console.log('Skiping to the next audio.');
+            this.setCurrentAudio(nextAudioIndex);
+        }
     }
 
     /**
@@ -411,34 +423,30 @@ class RiitimusEmbeddableAudioPlayer {
 
         // Adding event listeners
         this._elements.audioVolumeControls.children.audioVolumeMuteControl.on('click', () => {
-            this;this._toggleAudioVolume();
+            this._toggleAudioVolume();
         });
 
         this._elements.audioVolumeControls.children.audioVolumeBar.on('input', event => {
-            this._setAudioVolume(event.target.value);
+            this._setAudioVolume(Number(event.target.value));
         });
 
         this._elements.audioControls.children.audioPlaybackProgressControl
         .on('input', event => {
-            this._setAudioCurrentTime(event.target.value);
+            this._setAudioCurrentTime(Number(event.target.value));
         });
 
         this._elements.audioControls.children.audioSkipPreviousControl
-        .on('click', event => {
+        .on('click', () => {
             this._skipPrevious();
         });
 
-        this._elements.audioControls.children.audioSkipNextControl
-        .on('click', event => {
-            this._skipNext();
-        });
-
-        this._elements.audioControls.children.audioTogglePlaybackControl.on('click', () => {
+        this._elements.audioControls.children.audioTogglePlaybackControl
+        .on('click', () => {
             this._toggleAudioPlayback();
         });
 
         this._elements.audioControls.children.audioSkipNextControl
-        .on('input', event => {
+        .on('click', () => {
             this._skipNext();
         });
 
@@ -459,5 +467,7 @@ class RiitimusEmbeddableAudioPlayer {
 
             container.appendChild(element.htmlElement);
         }
+
+        console.log('Player mounted successfully.');
     }
 }
