@@ -5,11 +5,11 @@ An embeddable audio player for html pages, built with vanilla javascript.
  - [x] Load audio
  - [ ] Load audio cover
  - [x] Play/pause audio
- - [ ] Control audio playback progress
- - [ ] Control audio volume
- - [ ] Skip to next audio
- - [ ] Skip back to previous audio
+ - [x] Control audio playback progress
+ - [x] Control audio volume
+ - [x] Skip to next audio
+ - [x] Skip back to previous audio
  - [ ] Multiple layouts
- - [ ] Embed interface
+ - [x] Embed interface
  - [ ] Style interface
- - [ ] Working interface
+ - [x] Working interface
